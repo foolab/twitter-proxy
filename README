@@ -1,0 +1,46 @@
+This is a simple script that sits between an old non-oauth enabled twiter client and twitter.
+
+Copyright (C) 2010 Mohammed Sameer <msameer@foolab.org>, All Rights Reserved.
+License: GPL V2
+
+1) Register an application here http://dev.twitter.com/apps/new
+   Choose Client, Read & Write
+2) From http://dev.twitter.com/apps Click on the application
+   Save Consumer key and Consumer secret
+3) Scroll up and click My Access Token
+   Save Access Token (oauth_token) and Access Token Secret (oauth_token_secret)
+
+4) Fill twitter.ini
+   HOST_NAME -> host
+   PORT_NUMBER -> port
+   CONSUMER_KEY -> Consumer key
+   CONSUMER_SECRET -> Consumer secret
+   TOKEN -> Access Token
+   TOKEN_SECRET ->Access Token Secret
+   USER -> A username you choose (Same as the twitter client)
+   PASS -> A password you choose (Same as the twitter client)
+
+5) Run it:
+   python ./twitter-proxy.py
+
+6) Configure your client with the username and password
+7) Configure your client to connect to the host and port
+
+Problems:
+ A recent enough httplib2 and python-oauth2 are needed.
+ Tested it with httplib2-0.6.0.tar.gz
+
+ If you don't have a recent enough httplib2:
+   wget -c http://httplib2.googlecode.com/files/httplib2-0.6.0.tar.gz
+   tar -zxvf httplib2-0.6.0.tar.gz
+   ln -s httplib2-0.6.0 httplib2
+
+   git clone http://github.com/simplegeo/python-oauth2.git
+
+Limitations:
+* Only basic authentication is supported. The client I'm using doesn't support Digest.
+* Unlikely to implement Digest authentication within this script. I use it behind apache
+  mod_proxy so apache can do the Digest stuff and the script can then be modified not to require
+  any authentication
+* Only one user is supported. I'm not going to implement the full OAuth.
+* It's not a daemon. Use screen to run it.
